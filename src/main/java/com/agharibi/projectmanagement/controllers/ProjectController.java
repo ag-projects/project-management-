@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -42,18 +43,11 @@ public class ProjectController {
     }
 
     @PostMapping("/save")
-    public String createProject(Project project, @RequestParam List<Long> employees, Model model) {
+    public String createProject(Project project, Model model) {
 
         projectRepository.save(project);
-        Iterable<Employee> selectedEmployees = employeeRepository.findAllById(employees);
-
-        selectedEmployees.forEach(employee -> {
-            employee.setProject(project);
-            employeeRepository.save(employee);
-        });
-
         // prevent duplicate submissions
-        return "redirect:/projects/new";
+        return "redirect:/projects";
     }
 
 }
