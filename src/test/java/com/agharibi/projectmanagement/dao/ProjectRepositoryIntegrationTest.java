@@ -30,7 +30,7 @@ public class ProjectRepositoryIntegrationTest {
     private ProjectRepository projectRepository;
 
     @Test
-    public void ifNewSaved_thenSuccess() {
+    public void ifNewProjectSaved_thenSuccess() {
         Project project = new Project("test project", "COMPLETED", "test description");
         projectRepository.save(project);
         assertThat(projectRepository.findAll().size(), is(5));
