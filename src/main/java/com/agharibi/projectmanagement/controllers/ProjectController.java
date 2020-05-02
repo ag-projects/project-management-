@@ -39,7 +39,7 @@ public class ProjectController {
         model.addAttribute("allEmployees", employees);
         model.addAttribute("project", new Project());
 
-        return "/projects/new-project";
+        return "projects/new-project";
     }
 
     @PostMapping("/save")
