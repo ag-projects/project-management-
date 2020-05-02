@@ -1,11 +1,10 @@
 package com.agharibi.projectmanagement.controllers;
 
-import com.agharibi.projectmanagement.dao.EmployeeRepository;
-import com.agharibi.projectmanagement.dao.ProjectRepository;
-import com.agharibi.projectmanagement.dto.EmployeeProject;
 import com.agharibi.projectmanagement.dto.ChartData;
+import com.agharibi.projectmanagement.dto.EmployeeProject;
 import com.agharibi.projectmanagement.entities.Project;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.agharibi.projectmanagement.services.EmployeeService;
+import com.agharibi.projectmanagement.services.ProjectService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,25 +19,25 @@ import java.util.Map;
 public class HomeController {
 
     @Autowired
-    ProjectRepository projectRepository;
+    private ProjectService projectService;
 
     @Autowired
-    EmployeeRepository employeeRepository;
+    private EmployeeService employeeService;
 
     @GetMapping("/")
     public String displayHome(Model model) throws Exception {
 
         Map<String, Object> map = new HashMap<>();
 
-        List<Project> projects = projectRepository.findAll();
+        List<Project> projects = projectService.getAll();
         model.addAttribute("projects", projects);
 
-        List<ChartData> chartData = projectRepository.getProjectStatus();
+        List<ChartData> chartData = projectService.getProjectStatus();
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonString = objectMapper.writeValueAsString(chartData);
         model.addAttribute("projectStatusCount", jsonString);
 
-        List<EmployeeProject> employeeProjects = employeeRepository.employeeProjects();
+        List<EmployeeProject> employeeProjects = employeeService.employeeProjects();
         model.addAttribute("employeeProjects", employeeProjects);
 
         return "main/home";
