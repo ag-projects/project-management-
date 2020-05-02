@@ -8,7 +8,7 @@ ENV jdbcurl=jdbc:postgresql://pma.c2cc2mu0mve0.us-east-1.rds.amazonaws.com:5432/
 
 WORKDIR /usr/local/bin
 
-ADD pma-app.jar .
+ADD target/pma-app.jar .
 
 ENTRYPOINT ["java", "-jar", "pma-app.jar"]
 
