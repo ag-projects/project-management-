@@ -1,5 +1,7 @@
 package com.agharibi.projectmanagement.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,12 +11,13 @@ import java.util.List;
 public class Project {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "project_seq")
     private Long projectId;
     private String name;
     private String stage;
     private String description;
 
+    @JsonIgnore
     @ManyToMany(cascade = {
         CascadeType.DETACH,
         CascadeType.MERGE,

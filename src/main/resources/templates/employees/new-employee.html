@@ -16,6 +16,8 @@
         <input type="text" placeholder="Employee Name" th:field="*{lastName}">
         <input type="text" placeholder="Employee Name" th:field="*{email}">
 
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+
         <button type="submit">Create Employee</button>
 
     </form>
